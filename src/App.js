@@ -1,17 +1,13 @@
-import React,{Component} from 'react';
+import React from 'react';
 import Main from './components/maincontainercomponent';
 import './App.css';
 
-class App extends Component {
-
-  render(){
+  function App(){
     return (
       <div>
         <Main/>
       </div>
     );
   }
-  
-}
 
 export default App;
