@@ -56,9 +56,11 @@ class DishDetail extends React.Component{
             const cardbody = this.rendercard(this.props.dish);
             const cardcomments = this.rendercardcomment(this.props.dish);
             return(
-                <div className="row">
-                    {cardbody}
-                    {cardcomments}
+                <div className="container">
+                    <div className="row">
+                        {cardbody}
+                        {cardcomments}
+                    </div>
                 </div>
             );
         }
