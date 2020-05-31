@@ -9,7 +9,6 @@ import {NavLink} from 'react-router-dom';
         this.state = {
             isNavOpen: false
         };
-        this.toggleNav = this.toggleNav.bind(this)
     }
 
     toggleNav(){
@@ -19,9 +18,9 @@ import {NavLink} from 'react-router-dom';
     render(){
         return(
             <>
-                <Navbar dark expand="md">
+                <Navbar dark expand="md" className="fixed-top">
                     <div className="container">
-                        <NavbarToggler onClick={this.toggleNav} />
+                        <NavbarToggler onClick={() => this.toggleNav()} />
                         <NavbarBrand href="/" className="mr-auto"><img src="assets/images/logo.png" height="35" width="45" alt="Ristorante Con Fusion"/></NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>

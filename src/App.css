@@ -9,6 +9,7 @@
     border-bottom: #ddd ridge; }
   
   .jumbotron {
+    margin-top: 50px;
     font-size: 150%;
     color: floralwhite;
     background-color: blueviolet;
