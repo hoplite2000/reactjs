@@ -18,6 +18,7 @@ function Home(props){
     return(
         <div className="container">
             <div className="row align-items-start">
+                <div className="col-12"><h3>Home</h3><hr /></div>
                 <div className="col-12 col-md m-1">
                     <Rendercard item={props.dish} />
                 </div>

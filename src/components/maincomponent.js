@@ -30,13 +30,22 @@ class Main extends Component {
               leader={this.state.leaders.filter((lead) => lead.featured)[0]}/>
       );
     }
+
+    const dishdetail = ({match}) => {
+      return(
+        <DishDetail dish={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.id,10))[0]}
+                    comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.id,10))} />
+      );
+    }
+
     return (
       <div>
         <Header />
         <Switch>
           <Route path="/home" component={Homepage}/>
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />}/>
-          <Route path = "/contactus" component={Contact} />
+          <Route path="/menu/:id" component={dishdetail} />
+          <Route exact path = "/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
         <Footer />
