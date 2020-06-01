@@ -33,7 +33,7 @@ import {Link} from 'react-router-dom';
                     </Breadcrumb>
                 </div>
                 <div className="col-12"><h3>Menu</h3><hr /></div>
-                <div className="row">
+                <div className="row rowsection">
                     {menu}
                 </div>
             </div>
