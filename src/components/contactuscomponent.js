@@ -3,6 +3,11 @@ import {Breadcrumb, BreadcrumbItem, Label, Col, Button , Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {LocalForm, Control, Errors} from 'react-redux-form';
 
+const required = (val) => val && val.length;
+const maxlength = (val) => !val || val.length<=15;
+const minlength = (val) => !val || val.length>=3;
+const email = (val) => !val || /^[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z]{2,4}$/i.test(val);
+const number = (val) => !val || !isNaN(Number(val));
 
 class Contact extends React.Component {
 
@@ -60,25 +65,43 @@ class Contact extends React.Component {
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".firstname" id="firstname" name="firstname" placeholder="First Name" className="form-control" />                                
+                                    <Control.text model=".firstname" id="firstname" name="firstname" placeholder="First Name" className="form-control" validators={{required, minlength, maxlength}} />                                
+                                    <Errors show="touched" className="text-danger" model=".firstname" messages={{
+                                                                                                                required: 'Required ',
+                                                                                                                minlength: 'Minimum 3 characters required ',
+                                                                                                                maxlength: 'Maximum of 15 characters are allowed'
+                                    }} />
                                 </Col>        
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="lastname" md={2}>Last Name</Label>
                                 <Col md={10}>
-                                    <Control.text model=".lastname" id="lastname" name="lastname" placeholder="Last Name" className="form-control" />                                
+                                    <Control.text model=".lastname" id="lastname" name="lastname" placeholder="Last Name" className="form-control" validators={{required, minlength, maxlength}} />                                
+                                    <Errors show="touched" className="text-danger" model=".lastname" messages={{
+                                                                                                                required: 'Required ',
+                                                                                                                minlength: 'Minimum 3 characters required ',
+                                                                                                                maxlength: 'Maximum of 15 characters are allowed'
+                                    }} />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="email" md={2}>Email</Label>
                                 <Col md={10}>
-                                    <Control.text model=".email" id="email" name="email" placeholder="Email" className="form-control" />                                
+                                    <Control.text model=".email" id="email" name="email" placeholder="Email" className="form-control" validators={{required, email}} />                                
+                                    <Errors show="touched" className="text-danger" model=".email" messages={{
+                                                                                                            required: 'Required',
+                                                                                                            email: 'Enter a valid Email ID'
+                                    }} />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="telnum" md={2}>Tel. Number</Label>
                                 <Col md={10}>
-                                    <Control.text model=".telnum" id="telnum" name="telnum" placeholder="Tel. Number" className="form-control" />
+                                    <Control.text model=".telnum" id="telnum" name="telnum" placeholder="Tel. Number" className="form-control" validators={{required, number}} />
+                                    <Errors show="touched" className="text-danger" model=".telnum" messages={{
+                                                                                                            required: 'Required',
+                                                                                                            number: 'Enter a valid Tel. number'
+                                    }} />
                                 </Col>
                             </Row>
                             <Row className="form-group">
