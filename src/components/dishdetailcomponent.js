@@ -22,7 +22,7 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
         }
     }
 
-    function Rendercardcomment(comments){
+    function Rendercardcomment(comments, addcomment , id){
         if(comments == null){
             return(<div></div>);
         }
@@ -46,7 +46,7 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
                     <ul className="list-unstyled">
                         {comments_card}
                     </ul>
-                    <Commentform />
+                    <Commentform addcomment={addcomment} id={id}/>
                 </div>
             );
         }
@@ -55,7 +55,7 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
     const DishDetail = (props) => {
         if(props.dish != null){
             const cardbody = Rendercard(props.dish);
-            const cardcomments = Rendercardcomment(props.comments);
+            const cardcomments = Rendercardcomment(props.comments, props.addcomment, props.dish.id);
             return(
                 <div className="container">
                     <div className="row">
@@ -96,8 +96,8 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
         }
 
         onsubmit(values){
-            console.log("Current state is :" + JSON.stringify(values));
-            alert("Current state is :" + JSON.stringify(values));
+            this.togglecommentmodal();
+            this.props.addcomment(this.props.id, values.rating, values.name, values.comment);
         }
 
         render(){
