@@ -2,6 +2,7 @@ import React from 'react';
 import {Card, CardText, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Row, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
+import Loading from './loadingcomponent';
 
     function Rendercard(dish){
         if(dish == null){
@@ -53,7 +54,25 @@ import { LocalForm, Control, Errors } from 'react-redux-form';
     }
 
     const DishDetail = (props) => {
-        if(props.dish != null){
+        if(props.isloading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if(props.errmsg){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{props.errmsg}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if(props.dish != null){
             const cardbody = Rendercard(props.dish);
             const cardcomments = Rendercardcomment(props.comments, props.addcomment, props.dish.id);
             return(
