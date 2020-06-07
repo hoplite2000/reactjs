@@ -3,6 +3,7 @@ import {Card, CardText, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem
 import { Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import Loading from './loadingcomponent';
+import {Baseurl} from '../shared/baseurl';
 
     function Rendercard(dish){
         if(dish == null){
@@ -12,7 +13,7 @@ import Loading from './loadingcomponent';
             return(
                 <div key={dish.id} className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg src={dish.image} alt={dish.name}/>
+                        <CardImg src={Baseurl+dish.image} alt={dish.name}/>
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText> 
@@ -54,7 +55,7 @@ import Loading from './loadingcomponent';
     }
 
     const DishDetail = (props) => {
-        if(props.isloading){
+        if(props.dishisloading){
             return(
                 <div className="container">
                     <div className="row">
@@ -67,7 +68,7 @@ import Loading from './loadingcomponent';
             return(
                 <div className="container">
                     <div className="row">
-                        <h4>{props.errmsg}</h4>
+                        <h4>{props.disherrmsg}</h4>
                     </div>
                 </div>
             );
