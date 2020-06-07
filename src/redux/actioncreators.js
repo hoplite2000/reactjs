@@ -28,8 +28,23 @@ export const dishfail = (errmsg) => ({
 export const fetchdishs = () => (dispatch) => {
     dispatch(dishesloading(true));
     return fetch(Baseurl+'dishes')
+        .then(response =>{
+            if(response.ok){
+                return response;
+            }
+            else{
+                var err = new Error('Error '+response.status+': '+response.statusText)
+                err.response = response;
+                throw err;
+            }
+        }, 
+        error => {
+            var errmsg = new Error(error.message);
+            throw errmsg;
+        })
         .then(response => response.json())
-        .then(dishes => dispatch(adddishes(dishes)));
+        .then(dishes => dispatch(adddishes(dishes)))
+        .catch(error => dispatch(dishfail(error.message)));
 }
 
 export const promosloading = () => ({
@@ -49,8 +64,23 @@ export const promosfail = (errmsg) => ({
 export const fetchpromos = () => (dispatch) => {
     dispatch(promosloading(true));
     return fetch(Baseurl+'promotions')
+        .then(response => {
+            if(response.ok){
+                return response;
+            }
+            else{
+                var err = new Error('Error '+response.status+': '+response.statusText);
+                err.response = response;
+                throw err;
+            }
+        },
+        error => {
+            var errmsg = new Error(error.message);
+            throw errmsg;
+        })
         .then(response => response.json())
-        .then(promos => dispatch(addpromos(promos)));
+        .then(promos => dispatch(addpromos(promos)))
+        .catch(error => dispatch(promosfail(error.message)));
 }
 
 export const leadersloading = () => ({
@@ -71,7 +101,8 @@ export const fetchleaders = () => (dispatch) => {
     dispatch(promosloading(true));
     return fetch(Baseurl+'leaders')
         .then(response => response.json())
-        .then(leaders => dispatch(addleaders(leaders)));
+        .then(leaders => dispatch(addleaders(leaders)))
+        .catch(error=>dispatch(leadersfail(error.message)));
 }
 
 export const commentsfail = (errmsg) => ({
@@ -86,6 +117,21 @@ export const addcomments =(comments) =>({
 
 export const fetchcomments = () => (dispatch) =>{
     return fetch(Baseurl+'comments')
+        .then(response => {
+            if(response.ok){
+                return response;
+            }
+            else{
+                var err = new Error('Error '+response.status+': '+response.statusText);
+                err.response = response;
+                throw err;
+            }
+        },
+        error => {
+            var errmsg = new Error(error.message);
+            throw errmsg;
+        })
         .then(response => response.json())
-        .then(comments => dispatch(addcomments(comments)));
+        .then(comments => dispatch(addcomments(comments)))
+        .catch(error=>dispatch(commentsfail(error.message)));
 }
