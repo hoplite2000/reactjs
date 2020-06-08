@@ -1,15 +1,46 @@
 import * as actiontypes from './actiontypes';
 import {Baseurl} from '../shared/baseurl';
 
-export const addcomment = (dishId, rating, author, comment) => ({
+export const addcomment = (comment) => ({
     type: actiontypes.ADD_COMMENT,
-    payload: { 
-            dishId:dishId,
-            rating:rating,
-            author:author,
-            comment:comment
-        }
+    payload: comment
 });
+
+export const postcomment = (dishId, rating, author, comment) => (dispatch) => {
+    const newcomment = {
+        dishId: dishId,
+        rating: rating,
+        author: author,
+        comment: comment
+    }
+    newcomment.date = new Date().toISOString();
+    return fetch(Baseurl+'comments',{
+        method: 'POST',
+        body: JSON.stringify(newcomment),
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response =>{
+            if(response.ok){
+                return response;
+            }
+            else{
+                var err = new Error('Error '+response.status+': '+response.statusText)
+                err.response = response;
+                throw err;
+            }
+        }, 
+        error => {
+            var errmsg = new Error(error.message);
+            throw errmsg;
+        })
+        .then(response => response.json())
+        .then(comment => dispatch(addcomment(comment)))
+        .catch(error => {console.log('Post comments '+error.message);
+                        alert('Your comment could not be posted\nError: '+error.message);});
+}
 
 export const dishesloading = () => ({
     type: actiontypes.DISHES_LOADING

@@ -24,7 +24,7 @@ import {Baseurl} from '../shared/baseurl';
         }
     }
 
-    function Rendercardcomment(comments, addcomment , id){
+    function Rendercardcomment(comments, postcomment , id){
         if(comments == null){
             return(<div></div>);
         }
@@ -48,7 +48,7 @@ import {Baseurl} from '../shared/baseurl';
                     <ul className="list-unstyled">
                         {comments_card}
                     </ul>
-                    <Commentform addcomment={addcomment} id={id}/>
+                    <Commentform postcomment={postcomment} id={id}/>
                 </div>
             );
         }
@@ -75,7 +75,7 @@ import {Baseurl} from '../shared/baseurl';
         }
         else if(props.dish != null){
             const cardbody = Rendercard(props.dish);
-            const cardcomments = Rendercardcomment(props.comments, props.addcomment, props.dish.id);
+            const cardcomments = Rendercardcomment(props.comments, props.postcomment, props.dish.id);
             return(
                 <div className="container">
                     <div className="row">
@@ -117,7 +117,7 @@ import {Baseurl} from '../shared/baseurl';
 
         onsubmit(values){
             this.togglecommentmodal();
-            this.props.addcomment(this.props.id, values.rating, values.name, values.comment);
+            this.props.postcomment(this.props.id, values.rating, values.name, values.comment);
         }
 
         render(){
